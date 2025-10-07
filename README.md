@@ -1,25 +1,25 @@
-# Ingeniería de Software para Aplicaciones Móviles  
-**Universidad de los Andes**
+# Ingeniería de Software para Aplicaciones Móviles
+## Universidad de los Andes
 
-## Integrantes del Equipo
+### Integrantes del Equipo
 
 | Nombre | Correo |
 | ------ | ------ |
 | Daniel Beltrán Penagos | d.beltran@uniandes.edu.co |
 | Víctor Alfonso Camacho Agudelo | v.camacho@uniandes.edu.co |
 | Carlos Felipe Niño Rodríguez | cf.ninor1@uniandes.edu.co |
-| Juan Sebastián Rodríguez Gómez | j.rodriguezg@uniandes.edu.co |
+| Juan Sebastián Rodríguez Gómez | j.rodriguezg@uniandes.edu.co |x
 
 ---
 
-## Rama Actual: main
+###  Rama Actual: main
 
 > Este README corresponde a la rama **`main`**  
 > El propósito de la rama es contener las versiones estables listas para producción.
 
 ---
 
-## Proceso de Desarrollo
+### Proceso de Desarrollo
 
 El proyecto sigue el modelo **GitFlow**:
 
