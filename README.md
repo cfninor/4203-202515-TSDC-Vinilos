@@ -12,10 +12,10 @@
 
 ---
 
-###  Rama Actual: main
+###  Rama Actual: release/iteracion-1
 
-> Este README corresponde a la rama **`main`**  
-> El propósito de la rama es contener las versiones estables listas para producción.
+> Este README corresponde a la rama **`release/iteracion-1`**  
+> Esta rama contiene todos los entregables relacionados a la primera iteración del curso
 
 ---
 
