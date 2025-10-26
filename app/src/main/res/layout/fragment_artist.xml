@@ -6,9 +6,11 @@
     tools:context=".ui.artist.ArtistFragment">
 
     <TextView
+        android:id="@+id/artists_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Artistas" />
 
 </FrameLayout>
+    
