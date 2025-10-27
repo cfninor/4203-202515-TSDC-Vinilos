@@ -12,10 +12,10 @@
 
 ---
 
-###  Rama Actual: main
+###  Rama Actual: develop
 
-> Este README corresponde a la rama **`main`**  
-> El propósito de la rama es contener las versiones estables listas para producción.
+> Este README corresponde a la rama **`develop`**  
+> Esta es la rama principal de desarrollo e integración continua
 
 ---
 
