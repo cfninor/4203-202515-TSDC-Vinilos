@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import coil.load
 import com.example.appvinilos.databinding.AlbumItemBinding
 import com.example.appvinilos.databinding.AddAlbumButtonItemBinding
+import com.example.appvinilos.models.Album
 import java.text.SimpleDateFormat
 import java.util.Locale
 
