@@ -22,6 +22,19 @@ class AlbumDetailFragmentTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    /**
+     * **Objetivo:** Validar que al seleccionar un álbum de la lista, la pantalla de detalle
+     * se muestra correctamente con la información principal del álbum.
+     *
+     * **Alineación con Objetivos:**
+     * - **HU01 - Criterio de Aceptación:** Cumple con "Dado que toco un álbum, cuando selecciono
+     *   un ítem, entonces navego al detalle del álbum (HU02)".
+     * - **HU02 - Criterio de Aceptación:** Valida "Dado un álbum válido, cuando abro su detalle,
+     *   entonces veo portada, nombre, fecha de lanzamiento y género".
+     * - **TNT (Plan de Pruebas):** Se clasifica como una "Prueba de integración cliente-API"
+     *   y una "Prueba de usabilidad y flujo de interfaz", ya que verifica la navegación
+     *   (flujo E2E) y la correcta renderización de los datos obtenidos de la API real.
+     */
     @Test
     fun test_isAlbumDetailVisible() {
         // Espera a que el listado se muestre
@@ -40,6 +53,18 @@ class AlbumDetailFragmentTest {
         onView(withId(R.id.albumCoverDetail)).check(matches(isDisplayed()))
     }
 
+    /**
+     * **Objetivo:** Validar que si un álbum tiene tracks, la sección correspondiente para
+     * mostrarlos es visible en la pantalla de detalle.
+     *
+     * **Alineación con Objetivos:**
+     * - **HU02 - Criterio de Aceptación:** Valida parcialmente "Dado un álbum con tracks,
+     *   cuando estoy en el detalle, entonces veo listado de tracks con nombre y duración".
+     *   Esta prueba confirma que los componentes de la UI (el título y la lista) están visibles.
+     * - **TNT (Plan de Pruebas):** Al igual que la prueba anterior, es una "Prueba de integración
+     *   cliente-API", ya que depende de que el backend real devuelva un álbum que contenga
+     *   tracks para que la prueba sea exitosa y los elementos se muestren.
+     */
     @Test
     fun test_tracksAreVisible() {
         // Espera a que el listado se muestre
