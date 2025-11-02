@@ -3,6 +3,7 @@ package com.example.appvinilos.ui.album
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.appvinilos.R
@@ -41,10 +42,9 @@ class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<Recyc
         if (holder is AlbumViewHolder) {
             holder.bind(albums[position])
         }
-        // No data to bind for the button ViewHolder
     }
 
-    override fun getItemCount(): Int = albums.size + 1 // Add 1 for the button
+    override fun getItemCount(): Int = albums.size + 1
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateAlbums(newAlbums: List<Album>) {
@@ -63,6 +63,11 @@ class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<Recyc
             binding.albumCover.load(album.cover) {
                 placeholder(R.drawable.ic_launcher_background)
                 error(R.drawable.ic_launcher_background)
+            }
+
+            itemView.setOnClickListener {
+                val action = AlbumFragmentDirections.actionNavigationAlbumsToAlbumDetailFragment(album.id)
+                itemView.findNavController().navigate(action)
             }
         }
     }
