@@ -104,4 +104,30 @@ class AlbumFragmentTest {
         // Verifica que el RecyclerView sigue siendo visible después del scroll.
         onView(withId(R.id.recyclerAlbums)).check(matches(isDisplayed()))
     }
+
+    /**
+     * *Objetivo:* Validar que la funcionalidad de búsqueda en la pantalla de álbumes filtra
+     * correctamente la lista según el texto introducido por el usuario.
+     *
+     * *Alineación con Objetivos:*
+     * - *HU01 - Funcionalidad Implícita:* Aunque no está en los criterios de aceptación explícitos,
+     *   el diseño de UI incluye una barra de búsqueda, por lo que probarla es clave para
+     *   garantizar la calidad de la experiencia de usuario.
+     * - *TNT (Plan de Pruebas):* Es una "Prueba de usabilidad y flujo de interfaz" que valida
+     *   una interacción fundamental del usuario para encontrar contenido específico.
+     */
+    @Test
+    fun test_searchFunctionality_filtersAlbumList() {
+        waitForNetwork()
+
+        // Escribe "Buscando" en la barra de búsqueda y cierra el teclado.
+        onView(withId(R.id.searchEditText)).perform(typeText("Buscando"), closeSoftKeyboard())
+
+        // Pequeña espera para que el filtro se aplique en la UI.
+        try { Thread.sleep(1000) } catch (e: InterruptedException) { e.printStackTrace() }
+
+        // Verifica que un álbum que contiene "Buscando América" (texto en el item del RecyclerView)
+        // es visible después de filtrar. Esto asume que dicho álbum existe en los datos de la API.
+        onView(withText("Buscando América")).check(matches(isDisplayed()))
+    }
 }
