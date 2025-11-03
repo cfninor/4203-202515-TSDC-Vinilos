@@ -9,10 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.appvinilos.AlbumAdapter
-import com.example.appvinilos.AlbumViewModel
 import com.example.appvinilos.R
 import com.example.appvinilos.databinding.FragmentAlbumBinding
+import com.example.appvinilos.viewmodels.AlbumViewModel
 
 class AlbumFragment : Fragment() {
 
