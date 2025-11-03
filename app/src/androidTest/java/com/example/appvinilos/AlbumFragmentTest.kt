@@ -3,6 +3,8 @@ package com.example.appvinilos
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -106,14 +108,14 @@ class AlbumFragmentTest {
     }
 
     /**
-     * *Objetivo:* Validar que la funcionalidad de búsqueda en la pantalla de álbumes filtra
+     * **Objetivo:** Validar que la funcionalidad de búsqueda en la pantalla de álbumes filtra
      * correctamente la lista según el texto introducido por el usuario.
      *
-     * *Alineación con Objetivos:*
-     * - *HU01 - Funcionalidad Implícita:* Aunque no está en los criterios de aceptación explícitos,
+     * **Alineación con Objetivos:**
+     * - **HU01 - Funcionalidad Implícita:** Aunque no está en los criterios de aceptación explícitos,
      *   el diseño de UI incluye una barra de búsqueda, por lo que probarla es clave para
      *   garantizar la calidad de la experiencia de usuario.
-     * - *TNT (Plan de Pruebas):* Es una "Prueba de usabilidad y flujo de interfaz" que valida
+     * - **TNT (Plan de Pruebas):** Es una "Prueba de usabilidad y flujo de interfaz" que valida
      *   una interacción fundamental del usuario para encontrar contenido específico.
      */
     @Test
