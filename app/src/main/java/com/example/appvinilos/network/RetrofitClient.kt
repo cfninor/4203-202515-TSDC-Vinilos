@@ -1,5 +1,6 @@
 package com.example.appvinilos.network
 
+import com.example.appvinilos.network.VinylsApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

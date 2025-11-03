@@ -5,13 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_bottomNavigation()">
+      <SelectionState runConfigName="AlbumFragmentTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="AppNavigationTest">
+      <SelectionState runConfigName="AlbumDetailFragmentTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_albumSearch()">
+      <SelectionState runConfigName="Tests in 'com.example.appvinilos'">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

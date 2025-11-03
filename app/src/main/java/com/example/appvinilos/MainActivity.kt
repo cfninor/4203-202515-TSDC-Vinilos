@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_albums, R.id.navigation_artists, R.id.navigation_collectors, R.id.navigation_profile
@@ -30,5 +28,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
+
+        // Pop to start destination on re-selected item
+        binding.navView.setOnItemReselectedListener {
+            navController.popBackStack(it.itemId, false)
+        }
     }
 }
