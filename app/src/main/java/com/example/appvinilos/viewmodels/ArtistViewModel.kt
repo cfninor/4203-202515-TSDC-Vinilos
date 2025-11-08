@@ -22,8 +22,8 @@ class ArtistViewModel : ViewModel() {
                 val bandsDeferred = async { RetrofitClient.instance.getBands() }
                 val musiciansDeferred = async { RetrofitClient.instance.getMusicians() }
 
-                val bands = bandsDeferred.await()
-                val musicians = musiciansDeferred.await()
+                val bands = bandsDeferred.await().map { it.apply { artistType = "band" } }
+                val musicians = musiciansDeferred.await().map { it.apply { artistType = "musician" } }
 
                 val combinedArtists = (bands + musicians).sortedBy { it.name }
                 allArtists = combinedArtists

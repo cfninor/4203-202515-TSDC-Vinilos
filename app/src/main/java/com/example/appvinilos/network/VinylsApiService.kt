@@ -19,4 +19,10 @@ interface VinylsApiService {
 
     @GET("musicians")
     suspend fun getMusicians(): List<Performer>
+
+    @GET("bands/{bandId}")
+    suspend fun getBandDetail(@Path("bandId") bandId: Int): Performer
+
+    @GET("musicians/{musicianId}")
+    suspend fun getMusicianDetail(@Path("musicianId") musicianId: Int): Performer
 }

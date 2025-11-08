@@ -2,6 +2,7 @@ package com.example.appvinilos.ui.artist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.appvinilos.R
@@ -16,7 +17,15 @@ class ArtistAdapter(private var artists: List<Performer>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(artists[position])
+        val artist = artists[position]
+        holder.bind(artist)
+        holder.itemView.setOnClickListener {
+            val action = ArtistFragmentDirections.actionNavigationArtistsToArtistDetailFragment(
+                artistId = artist.id,
+                artistType = artist.artistType!!
+            )
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = artists.size

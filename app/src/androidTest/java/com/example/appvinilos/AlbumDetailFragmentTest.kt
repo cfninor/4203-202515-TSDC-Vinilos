@@ -1,4 +1,3 @@
-
 package com.example.appvinilos
 
 import androidx.test.espresso.Espresso.onView
