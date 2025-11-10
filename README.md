@@ -28,6 +28,7 @@ AppVinilos es una aplicación Android nativa, desarrollada en Kotlin, que permit
 - **Galería de Álbumes**: Visualización de álbumes en una cuadrícula de dos columnas.
 - **Búsqueda de Álbumes**: Filtrado de la galería de álbumes en tiempo real.
 - **Detalle del Álbum**: Pantalla de detalle con la portada del álbum como fondo, artista, fecha, género y una galería de tracks.
+- **Navegación Moderna**: Uso de `BottomNavigationView` y el Componente de Navegación de Jetpack para una experiencia de usuario fluida.
 - **Pruebas de UI**: Pruebas de instrumentación con Espresso para validar la navegación y la funcionalidad de búsqueda.
 
 ## Prerrequisitos
