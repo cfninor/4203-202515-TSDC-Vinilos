@@ -23,7 +23,7 @@ class AppNavigationTest {
     fun test_bottomNavigation() {
         // Navigate to Artists and verify the unique title is displayed
         onView(withId(R.id.navigation_artists)).perform(click())
-        onView(withId(R.id.artists_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.artistsTitle)).check(matches(isDisplayed()))
 
         // Navigate to Collectors and verify the unique title is displayed
         onView(withId(R.id.navigation_collectors)).perform(click())
