@@ -27,7 +27,7 @@ class AppNavigationTest {
 
         // Navigate to Collectors and verify the unique title is displayed
         onView(withId(R.id.navigation_collectors)).perform(click())
-        onView(withId(R.id.collectors_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.collectorsTitle)).check(matches(isDisplayed()))
 
         // Navigate to Profile and verify the unique title is displayed
         onView(withId(R.id.navigation_profile)).perform(click())
