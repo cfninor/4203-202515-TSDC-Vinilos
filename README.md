@@ -14,7 +14,7 @@
 
 ###  Rama Actual: develop
 
-> Este README corresponde a la rama **`develop`**  
+> Este README corresponde a la rama **`main`**  
 > Esta es la rama principal de desarrollo e integración continua
 
 ---
