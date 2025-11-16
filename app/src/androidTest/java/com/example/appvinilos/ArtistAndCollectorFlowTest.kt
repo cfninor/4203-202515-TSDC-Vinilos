@@ -218,6 +218,6 @@ class ArtistAndCollectorFlowTest {
             RecyclerViewActions.scrollToPosition<CollectorAdapter.CollectorViewHolder>(5)
         )
         onView(withId(R.id.collectorsRecyclerView)).check(matches(isDisplayed()))
-    }
+    }
 
 }
