@@ -1,6 +1,7 @@
 package com.example.appvinilos.network
 
 import com.example.appvinilos.models.Album
+import com.example.appvinilos.models.Collector
 import com.example.appvinilos.models.Performer
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -25,4 +26,8 @@ interface VinylsApiService {
 
     @GET("musicians/{musicianId}")
     suspend fun getMusicianDetail(@Path("musicianId") musicianId: Int): Performer
+
+    // Collectors
+    @GET("collectors")
+    suspend fun getCollectors(): List<Collector>
 }
