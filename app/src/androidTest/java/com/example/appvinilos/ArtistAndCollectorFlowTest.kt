@@ -171,4 +171,32 @@ class ArtistAndCollectorFlowTest {
         onView(withId(R.id.artistsRecyclerView)).check(matches(isDisplayed()))
     }
 
+    /**
+     * *Objetivo:* Validar que la lista de álbumes dentro de la pantalla de detalle de un artista
+     * es funcional y permite al usuario hacer scroll.
+     *
+     * *Alineación con Objetivos (TNT):*
+     * - *1. Integración Cliente-API:* Confirma que la sub-lista de álbumes del artista
+     *   se carga y renderiza correctamente.
+     * - *2. Usabilidad y Flujo de Interfaz:* Prueba la usabilidad de un componente anidado
+     *   (una lista dentro de otra pantalla).
+     */
+    @Test
+    fun test_artistDetail_albumList_canScroll() {
+        onView(withId(R.id.navigation_artists)).perform(click())
+        waitForNetwork()
+
+        // Navega al detalle del primer artista
+        onView(withId(R.id.artistsRecyclerView)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<ArtistAdapter.ArtistViewHolder>(0, click())
+        )
+        waitForNetwork()
+
+        // Asume que el artista tiene al menos 3 álbumes para poder hacer scroll
+        onView(withId(R.id.artistAlbumsRecyclerView)).perform(
+            RecyclerViewActions.scrollToPosition<ArtistAdapter.ArtistViewHolder>(3)
+        )
+        onView(withId(R.id.artistAlbumsRecyclerView)).check(matches(isDisplayed()))
+    }
+
 }
