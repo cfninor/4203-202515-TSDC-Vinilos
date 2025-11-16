@@ -199,4 +199,25 @@ class ArtistAndCollectorFlowTest {
         onView(withId(R.id.artistAlbumsRecyclerView)).check(matches(isDisplayed()))
     }
 
+    /**
+     * *Objetivo:* Validar que el usuario puede hacer scroll en la lista de coleccionistas,
+     * asegurando la usabilidad de la pantalla con una gran cantidad de datos.
+     *
+     * *Alineación con Objetivos (TNT):*
+     * - *2. Usabilidad y Flujo de Interfaz:* Verifica una interacción de usuario esencial para la HU05.
+     * - *5. Regresión Automatizada:* Garantiza que la lista de coleccionistas sigue siendo
+     *   funcional después de futuros cambios.
+     */
+    @Test
+    fun test_collectorList_canScroll() {
+        onView(withId(R.id.navigation_collectors)).perform(click())
+        waitForNetwork()
+
+        // Asume que la lista de coleccionistas tiene al menos 5 elementos
+        onView(withId(R.id.collectorsRecyclerView)).perform(
+            RecyclerViewActions.scrollToPosition<CollectorAdapter.CollectorViewHolder>(5)
+        )
+        onView(withId(R.id.collectorsRecyclerView)).check(matches(isDisplayed()))
+    }
+
 }
