@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appvinilos.models.Collector
-import com.example.appvinilos.network.RetrofitClient
+import com.example.appvinilos.repositories.CollectorRepository
 import kotlinx.coroutines.launch
 
-class CollectorViewModel : ViewModel() {
+class CollectorViewModel(private val collectorRepository: CollectorRepository) : ViewModel() {
 
     private val _collectors = MutableLiveData<List<Collector>>()
     val collectors: LiveData<List<Collector>> = _collectors
@@ -16,8 +16,7 @@ class CollectorViewModel : ViewModel() {
     fun fetchCollectors() {
         viewModelScope.launch {
             try {
-                val collectorList = RetrofitClient.instance.getCollectors()
-                _collectors.postValue(collectorList)
+                _collectors.postValue(collectorRepository.getCollectors())
             } catch (e: Exception) {
                 // Handle error
             }

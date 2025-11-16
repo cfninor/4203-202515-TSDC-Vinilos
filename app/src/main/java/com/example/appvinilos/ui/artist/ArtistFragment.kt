@@ -8,15 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.appvinilos.VinylsApplication
 import com.example.appvinilos.databinding.FragmentArtistBinding
 import com.example.appvinilos.viewmodels.ArtistViewModel
+import com.example.appvinilos.viewmodels.ViewModelFactory
 
 class ArtistFragment : Fragment() {
 
     private var _binding: FragmentArtistBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ArtistViewModel by viewModels()
+    private val viewModel: ArtistViewModel by viewModels {
+        val app = requireActivity().application as VinylsApplication
+        ViewModelFactory(app.albumRepository, app.artistRepository, app.collectorRepository)
+    }
     private var artistAdapter: ArtistAdapter? = null
 
     override fun onCreateView(

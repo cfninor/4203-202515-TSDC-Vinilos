@@ -92,3 +92,25 @@ El proyecto sigue el modelo **GitFlow**:
 - **`feature/*`**: ramas dedicadas a nuevas funcionalidades; se integran a `develop` mediante Pull Requests usando la modalidad squash and merge tras revisión de código y pruebas locales.
 
 ---
+
+### Gestión de Hilos y Co-rutinas (Dispatchers)
+
+Para garantizar una experiencia de usuario fluida y evitar errores de "Aplicación No Responde" (ANR), esta aplicación hace un uso extensivo de las co-rutinas de Kotlin para gestionar tareas en segundo plano. La selección del hilo correcto para cada tarea es crucial y se gestiona a través de los Dispatchers.
+
+Los principales dispatchers utilizados en el proyecto son:
+
+## 1.Dispatchers.Main
+Propósito: Este es el hilo principal de la aplicación. Es el único hilo que tiene permitido modificar la interfaz de usuario (UI), como actualizar una lista, cambiar un texto o mostrar una imagen.
+
+Uso en la App: Lo usamos dentro de los ViewModels con withContext(Dispatchers.Main) para actualizar de forma segura el valor de las variables LiveData (_albums.value = ...), garantizando que la UI se refresque sin errores después de completar una tarea en segundo plano.
+
+## 2.Dispatchers.IO
+Propósito: Está optimizado para operaciones de Entrada/Salida (Input/Output), que son tareas que implican leer o escribir datos desde el disco o, más comúnmente, desde la red. Estas operaciones son lentas y bloqueantes por naturaleza.
+
+Uso en la App: No se ve escrito explícitamente en nuestro código, porque Retrofit lo usa automáticamente por nosotros. Cuando llamamos a una función suspend de nuestra VinylsApiService (como getAlbums()), Retrofit se encarga de ejecutar esa petición de red en un hilo del pool de Dispatchers.IO, liberando al hilo principal.
+
+## 3.Dispatchers.Default:
+
+Propósito: Está diseñado para tareas que son intensivas en el uso de la CPU. Esto incluye operaciones como ordenar listas muy grandes, realizar cálculos complejos o, en nuestro caso, filtrar colecciones de datos.
+
+Uso en la App: Lo utilizamos en las funciones de búsqueda (searchAlbums y searchArtists). Envolvemos la lógica de filter dentro de un viewModelScope.launch(Dispatchers.Default) para asegurarnos de que la operación de filtrado, por pesada que sea, nunca cause "lag" o "tirones" en la interfaz de usuario.

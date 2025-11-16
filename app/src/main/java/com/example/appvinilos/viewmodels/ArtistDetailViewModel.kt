@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appvinilos.models.Performer
-import com.example.appvinilos.network.RetrofitClient
+import com.example.appvinilos.repositories.ArtistRepository
 import kotlinx.coroutines.launch
 
-class ArtistDetailViewModel : ViewModel() {
+class ArtistDetailViewModel(private val artistRepository: ArtistRepository) : ViewModel() {
 
     private val _artist = MutableLiveData<Performer>()
     val artist: LiveData<Performer> = _artist
@@ -17,8 +17,8 @@ class ArtistDetailViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val artistDetail = when (artistType) {
-                    "band" -> RetrofitClient.instance.getBandDetail(artistId)
-                    "musician" -> RetrofitClient.instance.getMusicianDetail(artistId)
+                    "band" -> artistRepository.getBandDetail(artistId)
+                    "musician" -> artistRepository.getMusicianDetail(artistId)
                     else -> null
                 }
                 artistDetail?.let {

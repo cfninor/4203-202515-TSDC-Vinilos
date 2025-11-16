@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
+import com.example.appvinilos.VinylsApplication
 import com.example.appvinilos.databinding.FragmentAlbumDetailBinding
 import com.example.appvinilos.viewmodels.AlbumDetailViewModel
+import com.example.appvinilos.viewmodels.ViewModelFactory
 import com.google.android.material.appbar.AppBarLayout
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -22,7 +24,10 @@ class AlbumDetailFragment : Fragment() {
     private var _binding: FragmentAlbumDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AlbumDetailViewModel by viewModels()
+    private val viewModel: AlbumDetailViewModel by viewModels {
+        val app = requireActivity().application as VinylsApplication
+        ViewModelFactory(app.albumRepository, app.artistRepository, app.collectorRepository)
+    }
     private val args: AlbumDetailFragmentArgs by navArgs()
     private var trackAdapter: TrackAdapter? = null
 
@@ -54,7 +59,7 @@ class AlbumDetailFragment : Fragment() {
             binding.tracksTitle.visibility = View.VISIBLE
             val gridLayoutManager = GridLayoutManager(context, 2)
             binding.tracksRecyclerView.layoutManager = gridLayoutManager
-            trackAdapter = TrackAdapter(album.tracks, album.cover)
+            trackAdapter = TrackAdapter(album.tracks ?: emptyList(), album.cover)
             binding.tracksRecyclerView.adapter = trackAdapter
 
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
