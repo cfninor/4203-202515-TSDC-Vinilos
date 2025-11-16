@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.appvinilos.databinding.FragmentCollectorBinding
+import com.example.appvinilos.viewmodels.CollectorViewModel
 
 class CollectorFragment : Fragment() {
 
     private var _binding: FragmentCollectorBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: CollectorViewModel by viewModels()
+    private var collectorAdapter: CollectorAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +24,19 @@ class CollectorFragment : Fragment() {
     ): View {
         _binding = FragmentCollectorBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        collectorAdapter = CollectorAdapter(emptyList())
+        binding.collectorsRecyclerView.adapter = collectorAdapter
+
+        viewModel.collectors.observe(viewLifecycleOwner) {
+            collectorAdapter?.updateCollectors(it)
+        }
+
+        viewModel.fetchCollectors()
     }
 
     override fun onDestroyView() {

@@ -2,10 +2,10 @@ package com.example.appvinilos
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.appvinilos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,11 +27,22 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
 
-        // Pop to start destination on re-selected item
-        binding.navView.setOnItemReselectedListener {
-            navController.popBackStack(it.itemId, false)
+        // Custom navigation listener to reset stack on tab selection
+        binding.navView.setOnItemSelectedListener { item ->
+            val builder = NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(item.itemId, inclusive = true)
+
+            // Let's navigate with these custom options
+            navController.navigate(item.itemId, null, builder.build())
+            true
         }
+    }
+
+    // This is needed to handle the up arrow correctly with our custom listener
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
