@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appvinilos.models.Performer
-import com.example.appvinilos.network.RetrofitClient
-import kotlinx.coroutines.async
+import com.example.appvinilos.repositories.ArtistRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class ArtistViewModel : ViewModel() {
+class ArtistViewModel(private val artistRepository: ArtistRepository) : ViewModel() {
 
     private val _artists = MutableLiveData<List<Performer>>()
     val artists: LiveData<List<Performer>> = _artists
@@ -19,13 +20,7 @@ class ArtistViewModel : ViewModel() {
     fun fetchArtists() {
         viewModelScope.launch {
             try {
-                val bandsDeferred = async { RetrofitClient.instance.getBands() }
-                val musiciansDeferred = async { RetrofitClient.instance.getMusicians() }
-
-                val bands = bandsDeferred.await().map { it.apply { artistType = "band" } }
-                val musicians = musiciansDeferred.await().map { it.apply { artistType = "musician" } }
-
-                val combinedArtists = (bands + musicians).sortedBy { it.name }
+                val combinedArtists = artistRepository.getArtists()
                 allArtists = combinedArtists
                 _artists.postValue(combinedArtists)
             } catch (e: Exception) {
@@ -35,11 +30,15 @@ class ArtistViewModel : ViewModel() {
     }
 
     fun searchArtists(query: String) {
-        val filteredList = if (query.isEmpty()) {
-            allArtists
-        } else {
-            allArtists.filter { it.name.contains(query, ignoreCase = true) }
+        viewModelScope.launch(Dispatchers.Default) {
+            val filteredList = if (query.isEmpty()) {
+                allArtists
+            } else {
+                allArtists.filter { it.name.contains(query, ignoreCase = true) }
+            }
+            withContext(Dispatchers.Main) {
+                _artists.value = filteredList
+            }
         }
-        _artists.postValue(filteredList)
     }
 }

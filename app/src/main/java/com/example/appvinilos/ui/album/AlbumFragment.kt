@@ -10,15 +10,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appvinilos.R
+import com.example.appvinilos.VinylsApplication
 import com.example.appvinilos.databinding.FragmentAlbumBinding
 import com.example.appvinilos.viewmodels.AlbumViewModel
+import com.example.appvinilos.viewmodels.ViewModelFactory
 
 class AlbumFragment : Fragment() {
 
     private var _binding: FragmentAlbumBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AlbumViewModel by viewModels()
+    private val viewModel: AlbumViewModel by viewModels {
+        val app = requireActivity().application as VinylsApplication
+        ViewModelFactory(app.albumRepository, app.artistRepository, app.collectorRepository)
+    }
     private var albumAdapter: AlbumAdapter? = null
 
     override fun onCreateView(

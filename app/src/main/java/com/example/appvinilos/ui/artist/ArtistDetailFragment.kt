@@ -9,15 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.example.appvinilos.VinylsApplication
 import com.example.appvinilos.databinding.FragmentArtistDetailBinding
 import com.example.appvinilos.viewmodels.ArtistDetailViewModel
+import com.example.appvinilos.viewmodels.ViewModelFactory
 
 class ArtistDetailFragment : Fragment() {
 
     private var _binding: FragmentArtistDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ArtistDetailViewModel by viewModels()
+    private val viewModel: ArtistDetailViewModel by viewModels {
+        val app = requireActivity().application as VinylsApplication
+        ViewModelFactory(app.albumRepository, app.artistRepository, app.collectorRepository)
+    }
     private val args: ArtistDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
