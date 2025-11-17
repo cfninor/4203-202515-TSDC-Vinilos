@@ -55,10 +55,4 @@ class MainActivity : AppCompatActivity(), ComponentCallbacks2 {
             this.imageLoader.memoryCache?.clear()
         }
     }
-
-    // This is needed to handle the up arrow correctly with our custom listener
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
 }
