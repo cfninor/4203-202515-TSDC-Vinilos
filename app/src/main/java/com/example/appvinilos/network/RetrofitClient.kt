@@ -5,7 +5,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:3000/"
+    // Replace with your computer's IP address on the same Wi-Fi network
+    private const val BASE_URL = "http://192.168.1.46:3000/"
 
     val instance: VinylsApiService by lazy {
         val retrofit = Retrofit.Builder()
