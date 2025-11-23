@@ -48,17 +48,8 @@ class MainActivity : AppCompatActivity(), ComponentCallbacks2 {
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        // This method is called when the system is low on memory.
-        // We can react by clearing caches.
-        if (level >= TRIM_MEMORY_COMPLETE) {
-            // For example, clear Coil's memory cache
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL) {
             this.imageLoader.memoryCache?.clear()
         }
-    }
-
-    // This is needed to handle the up arrow correctly with our custom listener
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

@@ -29,7 +29,11 @@
         android:id="@+id/navigation_collectors"
         android:name="com.example.appvinilos.ui.collector.CollectorFragment"
         android:label="Coleccionistas"
-        tools:layout="@layout/fragment_collector" />
+        tools:layout="@layout/fragment_collector">
+        <action
+            android:id="@+id/action_navigation_collectors_to_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -61,6 +65,22 @@
         <action
             android:id="@+id/action_artistDetailFragment_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.example.appvinilos.ui.collector.CollectorDetailFragment"
+        android:label="Detalle del Coleccionista"
+        tools:layout="@layout/fragment_collector_detail">
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_collectorDetailFragment_to_albumDetailFragment"
+            app:destination="@id/albumDetailFragment" />
+        <action
+            android:id="@+id/action_collectorDetailFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
     </fragment>
 
 </navigation>

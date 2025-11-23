@@ -2,14 +2,16 @@ package com.example.appvinilos.ui.artist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.appvinilos.R
 import com.example.appvinilos.databinding.ArtistAlbumItemBinding
 import com.example.appvinilos.models.Album
 
-class DiscographyAdapter(private val albums: List<Album>) : RecyclerView.Adapter<DiscographyAdapter.DiscographyViewHolder>() {
+class DiscographyAdapter(
+    private val albums: List<Album>,
+    private val onAlbumClicked: (Album) -> Unit
+) : RecyclerView.Adapter<DiscographyAdapter.DiscographyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscographyViewHolder {
         val binding = ArtistAlbumItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,10 +21,7 @@ class DiscographyAdapter(private val albums: List<Album>) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: DiscographyViewHolder, position: Int) {
         val album = albums[position]
         holder.bind(album)
-        holder.itemView.setOnClickListener {
-            val action = ArtistDetailFragmentDirections.actionArtistDetailFragmentToAlbumDetailFragment(album.id)
-            holder.itemView.findNavController().navigate(action)
-        }
+        holder.itemView.setOnClickListener { onAlbumClicked(album) }
     }
 
     override fun getItemCount(): Int = albums.size

@@ -1,14 +1,20 @@
 package com.example.appvinilos.repositories
 
 import com.example.appvinilos.models.Album
-import com.example.appvinilos.network.VinylsApiService
+import com.example.appvinilos.network.AlbumService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class AlbumRepositoryImpl(private val apiService: VinylsApiService) : AlbumRepository {
+class AlbumRepositoryImpl(private val apiService: AlbumService) : AlbumRepository {
     override suspend fun getAlbums(): List<Album> {
-        return apiService.getAlbums()
+        return withContext(Dispatchers.IO) {
+            apiService.getAlbums()
+        }
     }
 
     override suspend fun getAlbumDetail(albumId: Int): Album {
-        return apiService.getAlbumDetail(albumId)
+        return withContext(Dispatchers.IO) {
+            apiService.getAlbumDetail(albumId)
+        }
     }
 }
