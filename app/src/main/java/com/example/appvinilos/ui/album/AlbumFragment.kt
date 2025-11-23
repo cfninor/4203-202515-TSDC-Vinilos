@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.appvinilos.R
 import com.example.appvinilos.VinylsApplication
 import com.example.appvinilos.databinding.FragmentAlbumBinding
+import com.example.appvinilos.models.Album
 import com.example.appvinilos.viewmodels.AlbumViewModel
 import com.example.appvinilos.viewmodels.ViewModelFactory
 
@@ -38,7 +40,16 @@ class AlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        albumAdapter = AlbumAdapter(emptyList())
+        // Define click listeners
+        val onAlbumClicked: (Album) -> Unit = { album ->
+            val action = AlbumFragmentDirections.actionNavigationAlbumsToAlbumDetailFragment(album.id)
+            findNavController().navigate(action)
+        }
+        val onAddButtonClicked: () -> Unit = {
+            findNavController().navigate(R.id.action_navigation_albums_to_createAlbumFragment)
+        }
+
+        albumAdapter = AlbumAdapter(emptyList(), onAlbumClicked, onAddButtonClicked)
         val gridLayoutManager = GridLayoutManager(context, 2)
         binding.recyclerAlbums.layoutManager = gridLayoutManager
         binding.recyclerAlbums.adapter = albumAdapter
@@ -47,6 +58,10 @@ class AlbumFragment : Fragment() {
             override fun getSpanSize(position: Int): Int {
                 return if (position == albumAdapter?.itemCount?.minus(1)) 2 else 1
             }
+        }
+
+        binding.addButton.setOnClickListener {
+            onAddButtonClicked()
         }
 
         viewModel.albums.observe(viewLifecycleOwner) {

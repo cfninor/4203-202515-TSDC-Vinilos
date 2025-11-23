@@ -33,6 +33,9 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(CollectorDetailViewModel::class.java) -> {
                 CollectorDetailViewModel(collectorRepository, albumRepository) as T
             }
+            modelClass.isAssignableFrom(CreateAlbumViewModel::class.java) -> {
+                CreateAlbumViewModel(albumRepository) as T
+            }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

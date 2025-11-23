@@ -47,12 +47,13 @@ class AlbumDetailFragment : Fragment() {
         viewModel.album.observe(viewLifecycleOwner) { album ->
             val dateFormat = SimpleDateFormat("MMM yyyy", Locale.getDefault())
             val formattedDate = dateFormat.format(album.releaseDate)
+
             val performerName = album.performers.firstOrNull()?.name ?: ""
 
             binding.albumCoverDetail.load(album.cover)
             binding.albumNameDetail.text = album.name
             binding.performerNameDetail.text = performerName
-            binding.albumInfoDetail.text = "$formattedDate - ${album.genre}"
+            binding.albumInfoDetail.text = "$formattedDate - ${album.genre.name}" // Use .name for Enum
 
             setupToolbarTitle(album.name)
 
