@@ -1,14 +1,13 @@
 package com.example.appvinilos.repositories
 
 import com.example.appvinilos.models.Performer
-import com.example.appvinilos.network.VinylsApiService
+import com.example.appvinilos.network.ArtistService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
-class ArtistRepositoryImpl(private val apiService: VinylsApiService) : ArtistRepository {
+class ArtistRepositoryImpl(private val apiService: ArtistService) : ArtistRepository {
     override suspend fun getArtists(): List<Performer> {
-        // Since we need to fetch from two different endpoints, we run them concurrently
         return withContext(Dispatchers.IO) {
             val bandsDeferred = async { apiService.getBands() }
             val musiciansDeferred = async { apiService.getMusicians() }
@@ -21,10 +20,14 @@ class ArtistRepositoryImpl(private val apiService: VinylsApiService) : ArtistRep
     }
 
     override suspend fun getBandDetail(bandId: Int): Performer {
-        return apiService.getBandDetail(bandId)
+        return withContext(Dispatchers.IO) {
+            apiService.getBandDetail(bandId)
+        }
     }
 
     override suspend fun getMusicianDetail(musicianId: Int): Performer {
-        return apiService.getMusicianDetail(musicianId)
+        return withContext(Dispatchers.IO) {
+            apiService.getMusicianDetail(musicianId)
+        }
     }
 }

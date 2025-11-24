@@ -4,4 +4,5 @@ import com.example.appvinilos.models.Collector
 
 interface CollectorRepository {
     suspend fun getCollectors(): List<Collector>
+    suspend fun getCollectorDetail(collectorId: Int): Collector
 }

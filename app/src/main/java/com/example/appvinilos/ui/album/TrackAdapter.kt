@@ -9,7 +9,11 @@ import com.example.appvinilos.databinding.AddTrackButtonItemBinding
 import com.example.appvinilos.databinding.TrackItemBinding
 import com.example.appvinilos.models.Track
 
-class TrackAdapter(private val tracks: List<Track>, private val albumCoverUrl: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TrackAdapter(
+    private val tracks: List<Track>,
+    private val albumCoverUrl: String,
+    private val onAddTrackClicked: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TRACK_ITEM_VIEW_TYPE = 0
@@ -29,7 +33,7 @@ class TrackAdapter(private val tracks: List<Track>, private val albumCoverUrl: S
             }
             else -> {
                 val binding = AddTrackButtonItemBinding.inflate(inflater, parent, false)
-                ButtonViewHolder(binding)
+                ButtonViewHolder(binding, onAddTrackClicked)
             }
         }
     }
@@ -38,7 +42,6 @@ class TrackAdapter(private val tracks: List<Track>, private val albumCoverUrl: S
         if (holder is TrackViewHolder) {
             holder.bind(tracks[position], albumCoverUrl)
         }
-        // No data to bind for the button ViewHolder
     }
 
     override fun getItemCount(): Int = tracks.size + 1 // Add 1 for the button
@@ -54,5 +57,13 @@ class TrackAdapter(private val tracks: List<Track>, private val albumCoverUrl: S
         }
     }
 
-    class ButtonViewHolder(binding: AddTrackButtonItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ButtonViewHolder(
+        binding: AddTrackButtonItemBinding,
+        onAddTrackClicked: () -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            // The listener is now on the button itself, not the whole layout
+            binding.addTrackButton.setOnClickListener { onAddTrackClicked() }
+        }
+    }
 }

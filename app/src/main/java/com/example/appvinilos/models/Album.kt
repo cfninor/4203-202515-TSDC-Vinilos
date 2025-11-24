@@ -2,7 +2,7 @@ package com.example.appvinilos.models
 
 import java.util.Date
 
-enum class Genre{
+enum class Genre {
     Classical,
     Salsa,
     Rock,

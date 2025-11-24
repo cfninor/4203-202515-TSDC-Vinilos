@@ -48,10 +48,7 @@ class MainActivity : AppCompatActivity(), ComponentCallbacks2 {
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        // This method is called when the system is low on memory.
-        // We can react by clearing caches.
-        if (level >= TRIM_MEMORY_COMPLETE) {
-            // For example, clear Coil's memory cache
+        if (level >= ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL) {
             this.imageLoader.memoryCache?.clear()
         }
     }
