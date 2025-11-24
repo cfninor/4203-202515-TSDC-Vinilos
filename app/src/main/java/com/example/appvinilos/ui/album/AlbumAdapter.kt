@@ -3,7 +3,6 @@ package com.example.appvinilos.ui.album
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.appvinilos.R
@@ -13,7 +12,11 @@ import com.example.appvinilos.models.Album
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlbumAdapter(
+    private var albums: List<Album>,
+    private val onAlbumClicked: (Album) -> Unit,
+    private val onAddButtonClicked: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val ALBUM_ITEM_VIEW_TYPE = 0
@@ -29,11 +32,11 @@ class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<Recyc
         return when (viewType) {
             ALBUM_ITEM_VIEW_TYPE -> {
                 val binding = AlbumItemBinding.inflate(inflater, parent, false)
-                AlbumViewHolder(binding)
+                AlbumViewHolder(binding, onAlbumClicked)
             }
             else -> {
                 val binding = AddAlbumButtonItemBinding.inflate(inflater, parent, false)
-                ButtonViewHolder(binding)
+                ButtonViewHolder(binding, onAddButtonClicked)
             }
         }
     }
@@ -52,9 +55,22 @@ class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<Recyc
         notifyDataSetChanged()
     }
 
-    class AlbumViewHolder(private val binding: AlbumItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class AlbumViewHolder(
+        private val binding: AlbumItemBinding,
+        private val onAlbumClicked: (Album) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        private var currentAlbum: Album? = null
+
+        init {
+            itemView.setOnClickListener {
+                currentAlbum?.let { onAlbumClicked(it) }
+            }
+        }
+
         @SuppressLint("SimpleDateFormat")
         fun bind(album: Album) {
+            currentAlbum = album
             val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
             val year = yearFormat.format(album.releaseDate)
 
@@ -64,13 +80,16 @@ class AlbumAdapter(private var albums: List<Album>) : RecyclerView.Adapter<Recyc
                 placeholder(R.drawable.ic_launcher_background)
                 error(R.drawable.ic_launcher_background)
             }
-
-            itemView.setOnClickListener {
-                val action = AlbumFragmentDirections.actionNavigationAlbumsToAlbumDetailFragment(album.id)
-                itemView.findNavController().navigate(action)
-            }
         }
     }
 
-    class ButtonViewHolder(binding: AddAlbumButtonItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ButtonViewHolder(
+        binding: AddAlbumButtonItemBinding,
+        onAddButtonClicked: () -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            // The listener is now on the button itself, not the whole layout
+            binding.addAlbumButton.setOnClickListener { onAddButtonClicked() }
+        }
+    }
 }

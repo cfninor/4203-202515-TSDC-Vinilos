@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
@@ -47,19 +48,25 @@ class AlbumDetailFragment : Fragment() {
         viewModel.album.observe(viewLifecycleOwner) { album ->
             val dateFormat = SimpleDateFormat("MMM yyyy", Locale.getDefault())
             val formattedDate = dateFormat.format(album.releaseDate)
+
             val performerName = album.performers.firstOrNull()?.name ?: ""
 
             binding.albumCoverDetail.load(album.cover)
             binding.albumNameDetail.text = album.name
             binding.performerNameDetail.text = performerName
-            binding.albumInfoDetail.text = "$formattedDate - ${album.genre}"
+            binding.albumInfoDetail.text = "$formattedDate - ${album.genre.name}" // Use .name for Enum
 
             setupToolbarTitle(album.name)
 
             binding.tracksTitle.visibility = View.VISIBLE
             val gridLayoutManager = GridLayoutManager(context, 2)
             binding.tracksRecyclerView.layoutManager = gridLayoutManager
-            trackAdapter = TrackAdapter(album.tracks ?: emptyList(), album.cover)
+
+            val onAddTrackClicked = {
+                val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToCreateTrackFragment(album.id)
+                findNavController().navigate(action)
+            }
+            trackAdapter = TrackAdapter(album.tracks ?: emptyList(), album.cover, onAddTrackClicked)
             binding.tracksRecyclerView.adapter = trackAdapter
 
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

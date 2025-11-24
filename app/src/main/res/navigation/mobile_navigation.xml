@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_albums_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_albums_to_createAlbumFragment"
+            app:destination="@id/createAlbumFragment" />
     </fragment>
 
     <fragment
@@ -29,7 +32,11 @@
         android:id="@+id/navigation_collectors"
         android:name="com.example.appvinilos.ui.collector.CollectorFragment"
         android:label="Coleccionistas"
-        tools:layout="@layout/fragment_collector" />
+        tools:layout="@layout/fragment_collector">
+        <action
+            android:id="@+id/action_navigation_collectors_to_collectorDetailFragment"
+            app:destination="@id/collectorDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -45,6 +52,9 @@
         <argument
             android:name="albumId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_albumDetailFragment_to_createTrackFragment"
+            app:destination="@id/createTrackFragment" />
     </fragment>
 
     <fragment
@@ -61,6 +71,38 @@
         <action
             android:id="@+id/action_artistDetailFragment_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/collectorDetailFragment"
+        android:name="com.example.appvinilos.ui.collector.CollectorDetailFragment"
+        android:label="Detalle del Coleccionista"
+        tools:layout="@layout/fragment_collector_detail">
+        <argument
+            android:name="collectorId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_collectorDetailFragment_to_albumDetailFragment"
+            app:destination="@id/albumDetailFragment" />
+        <action
+            android:id="@+id/action_collectorDetailFragment_to_artistDetailFragment"
+            app:destination="@id/artistDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createAlbumFragment"
+        android:name="com.example.appvinilos.ui.album.CreateAlbumFragment"
+        android:label="Crear Álbum"
+        tools:layout="@layout/fragment_create_album" />
+
+    <fragment
+        android:id="@+id/createTrackFragment"
+        android:name="com.example.appvinilos.ui.album.CreateTrackFragment"
+        android:label="Crear Track"
+        tools:layout="@layout/fragment_create_track">
+        <argument
+            android:name="albumId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

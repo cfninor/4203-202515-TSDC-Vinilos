@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.appvinilos.VinylsApplication
@@ -42,7 +43,10 @@ class ArtistDetailFragment : Fragment() {
             binding.artistDescriptionDetail.text = artist.description
 
             artist.albums?.let {
-                binding.artistAlbumsRecyclerView.adapter = DiscographyAdapter(it)
+                binding.artistAlbumsRecyclerView.adapter = DiscographyAdapter(it) { album ->
+                    val action = ArtistDetailFragmentDirections.actionArtistDetailFragmentToAlbumDetailFragment(album.id)
+                    findNavController().navigate(action)
+                }
             }
         }
 

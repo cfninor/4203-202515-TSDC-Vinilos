@@ -12,6 +12,7 @@ class ViewModelFactory(
     private val collectorRepository: CollectorRepository
 ) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(AlbumViewModel::class.java) -> {
@@ -28,6 +29,15 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(ArtistDetailViewModel::class.java) -> {
                 ArtistDetailViewModel(artistRepository) as T
+            }
+            modelClass.isAssignableFrom(CollectorDetailViewModel::class.java) -> {
+                CollectorDetailViewModel(collectorRepository, albumRepository) as T
+            }
+            modelClass.isAssignableFrom(CreateAlbumViewModel::class.java) -> {
+                CreateAlbumViewModel(albumRepository) as T
+            }
+            modelClass.isAssignableFrom(CreateTrackViewModel::class.java) -> {
+                CreateTrackViewModel(albumRepository) as T
             }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

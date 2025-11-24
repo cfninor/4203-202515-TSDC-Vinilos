@@ -2,6 +2,7 @@ package com.example.appvinilos.ui.collector
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appvinilos.R
 import com.example.appvinilos.databinding.CollectorItemBinding
@@ -15,7 +16,12 @@ class CollectorAdapter(private var collectors: List<Collector>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: CollectorViewHolder, position: Int) {
-        holder.bind(collectors[position])
+        val collector = collectors[position]
+        holder.bind(collector)
+        holder.itemView.setOnClickListener {
+            val action = CollectorFragmentDirections.actionNavigationCollectorsToCollectorDetailFragment(collector.id)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount(): Int = collectors.size

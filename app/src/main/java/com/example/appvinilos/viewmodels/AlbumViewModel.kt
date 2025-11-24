@@ -1,5 +1,6 @@
 package com.example.appvinilos.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +25,8 @@ class AlbumViewModel(private val albumRepository: AlbumRepository) : ViewModel()
                 allAlbums = albumList
                 _albums.postValue(albumList)
             } catch (e: Exception) {
-                // Handle error
+                Log.e("AlbumViewModel", "Error fetching albums: ${e.message}")
+                e.printStackTrace()
             }
         }
     }
