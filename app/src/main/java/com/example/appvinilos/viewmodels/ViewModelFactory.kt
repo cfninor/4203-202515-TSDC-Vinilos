@@ -36,6 +36,9 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(CreateAlbumViewModel::class.java) -> {
                 CreateAlbumViewModel(albumRepository) as T
             }
+            modelClass.isAssignableFrom(CreateTrackViewModel::class.java) -> {
+                CreateTrackViewModel(albumRepository) as T
+            }
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
@@ -60,7 +61,12 @@ class AlbumDetailFragment : Fragment() {
             binding.tracksTitle.visibility = View.VISIBLE
             val gridLayoutManager = GridLayoutManager(context, 2)
             binding.tracksRecyclerView.layoutManager = gridLayoutManager
-            trackAdapter = TrackAdapter(album.tracks ?: emptyList(), album.cover)
+
+            val onAddTrackClicked = {
+                val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToCreateTrackFragment(album.id)
+                findNavController().navigate(action)
+            }
+            trackAdapter = TrackAdapter(album.tracks ?: emptyList(), album.cover, onAddTrackClicked)
             binding.tracksRecyclerView.adapter = trackAdapter
 
             gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

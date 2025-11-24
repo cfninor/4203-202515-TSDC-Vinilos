@@ -52,6 +52,9 @@
         <argument
             android:name="albumId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_albumDetailFragment_to_createTrackFragment"
+            app:destination="@id/createTrackFragment" />
     </fragment>
 
     <fragment
@@ -91,5 +94,15 @@
         android:name="com.example.appvinilos.ui.album.CreateAlbumFragment"
         android:label="Crear Álbum"
         tools:layout="@layout/fragment_create_album" />
+
+    <fragment
+        android:id="@+id/createTrackFragment"
+        android:name="com.example.appvinilos.ui.album.CreateTrackFragment"
+        android:label="Crear Track"
+        tools:layout="@layout/fragment_create_track">
+        <argument
+            android:name="albumId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
