@@ -26,8 +26,9 @@ class CreateAlbumFragmentTest {
      */
     @Test
     fun test_showCreateAlbumForm() {
-        onView(withId(R.id.navigation_collectors)).perform(click())
-        onView(withId(R.id.add_album_button)).perform(click())
+        // Navega a la pantalla de álbumes y hace clic en el botón de agregar
+        onView(withId(R.id.navigation_albums)).perform(click())
+        onView(withId(R.id.addButton)).perform(click())
 
         onView(withId(R.id.name_edit_text)).check(matches(isDisplayed()))
         onView(withId(R.id.cover_edit_text)).check(matches(isDisplayed()))
@@ -44,8 +45,8 @@ class CreateAlbumFragmentTest {
      */
     @Test
     fun test_createAlbumButtonInitiallyDisabled() {
-        onView(withId(R.id.navigation_collectors)).perform(click())
-        onView(withId(R.id.add_album_button)).perform(click())
+        onView(withId(R.id.navigation_albums)).perform(click())
+        onView(withId(R.id.addButton)).perform(click())
 
         onView(withId(R.id.save_button)).check(matches(not(isEnabled())))
     }
@@ -56,8 +57,8 @@ class CreateAlbumFragmentTest {
      */
     @Test
     fun test_formFields_enablesButton() {
-        onView(withId(R.id.navigation_collectors)).perform(click())
-        onView(withId(R.id.add_album_button)).perform(click())
+        onView(withId(R.id.navigation_albums)).perform(click())
+        onView(withId(R.id.addButton)).perform(click())
 
         // Llena los campos obligatorios
         onView(withId(R.id.name_edit_text)).perform(typeText("Nuevo Álbum de Prueba"))
@@ -74,8 +75,8 @@ class CreateAlbumFragmentTest {
      */
     @Test
     fun test_createAlbum_showsSuccess() {
-        onView(withId(R.id.navigation_collectors)).perform(click())
-        onView(withId(R.id.add_album_button)).perform(click())
+        onView(withId(R.id.navigation_albums)).perform(click())
+        onView(withId(R.id.addButton)).perform(click())
 
         // Llena el formulario
         onView(withId(R.id.name_edit_text)).perform(typeText("Viaje al Corazón del Rock"))

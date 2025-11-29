@@ -16,6 +16,9 @@
       <SelectionState runConfigName="Tests in 'com.example.appvinilos'">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="AddTrackToAlbumFragmentTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

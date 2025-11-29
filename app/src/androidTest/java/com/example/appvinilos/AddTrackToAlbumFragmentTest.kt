@@ -2,7 +2,8 @@ package com.example.appvinilos
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -52,8 +53,8 @@ class AddTrackToAlbumFragmentTest {
     fun test_formFields_enablesButton() {
         navigateToAlbumDetailAndAddTrack()
 
-        onView(withId(R.id.track_name_edit_text)).perform(typeText("Nuevo Track de Prueba"))
-        onView(withId(R.id.track_duration_edit_text)).perform(typeText("3:45"))
+        onView(withId(R.id.track_name_edit_text)).perform(replaceText("Nuevo Track de Prueba"))
+        onView(withId(R.id.track_duration_edit_text)).perform(replaceText("3:45"))
 
         onView(withId(R.id.save_track_button)).check(matches(isEnabled()))
     }
@@ -66,8 +67,8 @@ class AddTrackToAlbumFragmentTest {
     fun test_addTrack_showsInList() {
         navigateToAlbumDetailAndAddTrack()
 
-        onView(withId(R.id.track_name_edit_text)).perform(typeText("Amanecer Eléctrico"))
-        onView(withId(R.id.track_duration_edit_text)).perform(typeText("4:20"))
+        onView(withId(R.id.track_name_edit_text)).perform(replaceText("Amanecer Eléctrico"))
+        onView(withId(R.id.track_duration_edit_text)).perform(replaceText("4:20"))
 
         onView(withId(R.id.save_track_button)).perform(click())
 
@@ -84,6 +85,6 @@ class AddTrackToAlbumFragmentTest {
         }
 
         onView(withId(R.id.recyclerAlbums)).perform(RecyclerViewActions.actionOnItemAtPosition<AlbumAdapter.AlbumViewHolder>(0, click()))
-        onView(withId(R.id.add_track_button)).perform(click())
+        onView(withId(R.id.add_track_button)).perform(scrollTo(), click())
     }
 }
