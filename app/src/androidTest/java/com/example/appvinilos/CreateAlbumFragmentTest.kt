@@ -2,7 +2,7 @@ package com.example.appvinilos
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
@@ -61,9 +61,10 @@ class CreateAlbumFragmentTest {
         onView(withId(R.id.addButton)).perform(click())
 
         // Llena los campos obligatorios
-        onView(withId(R.id.name_edit_text)).perform(typeText("Nuevo Álbum de Prueba"))
-        onView(withId(R.id.release_date_edit_text)).perform(typeText("2024-05-23"))
-        onView(withId(R.id.description_edit_text)).perform(typeText("Descripción de prueba"))
+        onView(withId(R.id.name_edit_text)).perform(replaceText("Nuevo Álbum de Prueba"))
+        onView(withId(R.id.release_date_edit_text)).perform(replaceText("2024-05-23"))
+        onView(withId(R.id.description_edit_text)).perform(replaceText("Descripción de prueba"))
+        onView(withId(R.id.genre_auto_complete)).perform(replaceText("Rock"))
 
         // Verifica que el botón está habilitado
         onView(withId(R.id.save_button)).check(matches(isEnabled()))
@@ -79,13 +80,11 @@ class CreateAlbumFragmentTest {
         onView(withId(R.id.addButton)).perform(click())
 
         // Llena el formulario
-        onView(withId(R.id.name_edit_text)).perform(typeText("Viaje al Corazón del Rock"))
-        onView(withId(R.id.cover_edit_text)).perform(typeText("http://example.com/cover.jpg"))
-        onView(withId(R.id.release_date_edit_text)).perform(typeText("2024-01-15"))
-        onView(withId(R.id.description_edit_text)).perform(typeText("Un álbum que explora las raíces del rock."))
-        
-        // Aquí se necesitaría seleccionar valores de los Spinners, lo cual puede ser complejo
-        // y depende de la implementación. Se omite por ahora para mantener la prueba simple.
+        onView(withId(R.id.name_edit_text)).perform(replaceText("Viaje al Corazón del Rock"))
+        onView(withId(R.id.cover_edit_text)).perform(replaceText("http://example.com/cover.jpg"))
+        onView(withId(R.id.release_date_edit_text)).perform(replaceText("2024-01-15"))
+        onView(withId(R.id.description_edit_text)).perform(replaceText("Un álbum que explora las raíces del rock."))
+        onView(withId(R.id.genre_auto_complete)).perform(replaceText("Rock"))
 
         onView(withId(R.id.save_button)).perform(click())
 
