@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.size.ViewSizeResolver
 import com.example.appvinilos.R
 import com.example.appvinilos.databinding.AddTrackButtonItemBinding
 import com.example.appvinilos.databinding.TrackItemBinding
@@ -53,6 +54,7 @@ class TrackAdapter(
             binding.trackAlbumCover.load(coverUrl) {
                 placeholder(R.drawable.ic_launcher_background)
                 error(R.drawable.ic_launcher_background)
+                size(ViewSizeResolver(binding.trackAlbumCover))
             }
         }
     }
