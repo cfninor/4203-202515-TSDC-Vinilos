@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.size.ViewSizeResolver
 import com.example.appvinilos.R
 import com.example.appvinilos.databinding.ArtistItemBinding
 import com.example.appvinilos.models.Performer
@@ -41,6 +42,7 @@ class ArtistAdapter(private var artists: List<Performer>) : RecyclerView.Adapter
             binding.artistImage.load(performer.image) {
                 placeholder(R.drawable.ic_launcher_background)
                 error(R.drawable.ic_launcher_background)
+                size(ViewSizeResolver(binding.artistImage))
             }
         }
     }
