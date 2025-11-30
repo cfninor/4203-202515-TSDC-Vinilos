@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), ComponentCallbacks2 {
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        if (level >= ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL) {
+        if (level >= TRIM_MEMORY_COMPLETE) {
             this.imageLoader.memoryCache?.clear()
         }
     }
